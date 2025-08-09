@@ -37,7 +37,7 @@ class _VoteScreenState extends State<VoteScreen> {
     if (controller.platform is WebKitWebViewController) {
       final WebKitWebViewController webKitController =
           controller.platform as WebKitWebViewController;
-      webKitController.setAllowsBackForwardNavigationGestures(false);
+      webKitController.setAllowsBackForwardNavigationGestures(true);
     }
 
     // 웹뷰 설정
@@ -93,17 +93,30 @@ class _VoteScreenState extends State<VoteScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      body: SafeArea(
-        child: Column(
-          children: [
-            Expanded(
-              child: WebViewWidget(
-                controller: controller,
+    return PopScope(
+      canPop: false,
+      onPopInvokedWithResult: (didPop, result) async {
+        if (didPop) return;
+        if (await controller.canGoBack()) {
+          controller.goBack();
+        } else {
+          if (context.mounted) {
+            Navigator.of(context).pop(result);
+          }
+        }
+      },
+      child: Scaffold(
+        backgroundColor: Colors.white,
+        body: SafeArea(
+          child: Column(
+            children: [
+              Expanded(
+                child: WebViewWidget(
+                  controller: controller,
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
