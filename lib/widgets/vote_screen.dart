@@ -1,8 +1,10 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import 'package:webview_flutter_wkwebview/webview_flutter_wkwebview.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'dart:io';
+import '../constants/app_constants.dart';
 
 class VoteScreen extends StatefulWidget {
   const VoteScreen({
@@ -72,7 +74,7 @@ class _VoteScreenState extends State<VoteScreen> {
           },
         ),
       )
-      ..loadRequest(Uri.parse('https://ggugitt-dev.web.app/'));
+      ..loadRequest(Uri.parse(AppConstants.voteUrl));
   }
 
   Future<void> _launchKakaoTalk(String url) async {
