@@ -47,5 +47,10 @@
 		<true/>
 		<key>UIStatusBarHidden</key>
 		<false/>
+		<key>LSApplicationQueriesSchemes</key>
+		<array>
+			<string>kakaolink</string>
+			<string>kakaotalk</string>
+		</array>
 	</dict>
 </plist>
