@@ -1,9 +1,8 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:url_launcher/url_launcher.dart';
-import '../constants/app_constants.dart';
+import 'package:ggugitt_app/config/app_config.dart';
 
 class VoteScreen extends StatefulWidget {
   const VoteScreen({
@@ -40,8 +39,6 @@ class _VoteScreenState extends State<VoteScreen> {
             await inAppController.reload();
           }
         } finally {
-          // endRefreshing은 onLoadStop/onReceivedError에서도 호출되지만,
-          // 안전하게 보장하기 위해 여기서도 시도
           pullToRefreshController.endRefreshing();
         }
       },
@@ -53,12 +50,12 @@ class _VoteScreenState extends State<VoteScreen> {
       final Uri uri = Uri.parse(url);
       if (await canLaunchUrl(uri)) {
         await launchUrl(uri, mode: LaunchMode.externalApplication);
-        print('카카오톡 실행 성공: $url');
+        debugPrint('카카오톡 실행 성공: $url');
       } else {
-        print('카카오톡 앱을 실행할 수 없습니다: $url');
+        debugPrint('카카오톡 앱을 실행할 수 없습니다: $url');
       }
     } catch (e) {
-      print('카카오톡 실행 실패: $e');
+      debugPrint('카카오톡 실행 실패: $e');
     }
   }
 
@@ -80,7 +77,7 @@ class _VoteScreenState extends State<VoteScreen> {
         backgroundColor: Colors.white,
         body: SafeArea(
           child: InAppWebView(
-            initialUrlRequest: URLRequest(url: WebUri(AppConstants.voteUrl)),
+            initialUrlRequest: URLRequest(url: WebUri(AppConfig.voteUrl)),
             initialSettings: InAppWebViewSettings(
               javaScriptEnabled: true,
               mediaPlaybackRequiresUserGesture: false,
