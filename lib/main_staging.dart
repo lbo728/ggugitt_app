@@ -4,6 +4,9 @@ import 'package:ggugitt_app/ui/home/widgets/home_screen.dart';
 import 'package:ggugitt_app/ui/vote/widgets/vote_screen.dart';
 
 void main() {
+  // 스테이징 환경 설정
+  const bool.fromEnvironment('IS_STAGING', defaultValue: true);
+
   runApp(
     const MyApp(),
   );
@@ -17,8 +20,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: '꾸깃',
-      debugShowCheckedModeBanner: false,
+      title: '꾸깃 (스테이징)',
+      debugShowCheckedModeBanner: true,
       theme: AppTheme.lightTheme,
       darkTheme: AppTheme.darkTheme,
       home: const MainScreen(),
